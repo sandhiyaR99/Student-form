@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students details</title>
+</head>
+
+<body>
+    <style>
+        .container{
+            display: flex;
+            flex-direction: column;
+            justify-items: center;
+            align-items: center;
+            gap: 20px;
+        }
+        th,
+        td {
+            border: 1px solid black;
+            padding: 3px;
+            text-align: left;
+        }
+
+        table {
+            border: 2px double;
+        }
+
+        #savebtn {
+            padding: 0px 90px;
+            background-color: yellow;
+        }
+        .deletebutton{
+            background-color: red;
+        }
+
+        select {
+            width: 100%;
+        }
+    </style>
+    <div class="container">
+        <h1>Student Form</h1>
+
+        <table id="tableinput">
+            <tr>
+                <td>Name</td>
+                <td><input type="text" id="name"></td>
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td><input type="number" id="age"></td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td><input type="radio" name="Gender" id="male">Male <input type="radio" name="Gender" id="female">
+                    Female
+                </td>
+            </tr>
+            <tr>
+                <td>Course</td>
+                <td><select>
+                        <option>Javascript</option>
+                        <option>Python</option>
+                        <option>C</option>
+                        <option>C++</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" id="email"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button id="savebtn">Save</button></td>
+            </tr>
+        </table>
+
+        <table id="tableupdate">
+            <tr>
+                <th>name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Course</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <td>Amal</td>
+                <td>22</td>
+                <td>male</td>
+                <td>python</td>
+                <td>Amal@gmail.com</td>
+                <td><button class="deletebutton" onclick="removerow(event)">Delete</button></td>
+            </tr>
+
+        </table>
+    </div>
+
+
+    <script>
+        document.getElementById("savebtn").addEventListener("click", function () {
+
+            var name = document.getElementById("name").value
+            var age = document.getElementById("age").value
+            var gender = document.querySelector('input[name="Gender"]:checked').value
+            var course = document.querySelector('select').value
+            var email = document.getElementById("email").value
+
+            var newrow = document.getElementById("tableupdate").insertRow(-1)
+
+            newrow.insertCell(0).textContent = name;
+            newrow.insertCell(1).textContent = age;
+            newrow.insertCell(2).textContent = gender;
+            newrow.insertCell(3).textContent = course;
+            newrow.insertCell(4).textContent = email;
+
+            var deletebutton = document.createElement("button");
+            deletebutton.textContent = "Delete";
+            deletebutton.style.backgroundColor="red"
+
+            newrow.insertCell(5).appendChild(deletebutton);
+
+            deletebutton.addEventListener("click", function removerow(event) {
+                event.target.parentNode.parentNode.remove();
+            });
+
+            document.getElementById("name").value = "";
+            document.getElementById("age").value = "";
+            document.querySelector('input[name="Gender"]:checked').checked = false;
+            document.querySelector('select').selectedIndex = 0;
+            document.getElementById("email").value = "";
+
+        })
+
+        function removerow(event) {
+            event.target.parentNode.parentNode.remove();
+        }
+
+    </script>
+</body>
+
+</html>
